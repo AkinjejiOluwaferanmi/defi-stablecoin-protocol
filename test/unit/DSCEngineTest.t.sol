@@ -184,7 +184,7 @@ contract DSCEngineTest is Test {
         dscEngine.mintDsc(AMOUNT_TO_MINT);
         assertEq(dsc.balanceOf(USER), AMOUNT_TO_MINT);
     }
-    
+
     function testDscMintedRevertsIfMintedZeroDsc() public depositedCollateral {
         vm.startPrank(USER);
         vm.expectRevert(DSCEngine__NeedsMoreThanZeroCollateral.selector);
