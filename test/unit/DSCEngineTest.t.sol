@@ -334,29 +334,23 @@ contract DSCEngineTest is Test {
         assertEq(dscEngine.getHealthFactor(USER), 2e18);
     }
 
-    /* function testRevertsHealthFactorHasNotImproved() public {
-        // Since user has 1 WETH that has been minted in the setUp I don't need to give him WETH.
-        vm.startPrank(USER);
-        ERC20Mock(wethAddress).approve(address(dscEngine), AMOUNT_COLLATERAL);
-        dscEngine.depositCollateralAndMintDsc(wethAddress, AMOUNT_COLLATERAL, 1000e18);
-        vm.stopPrank();
-
-        // Drop the ETH price from $2000 to $900
+    function testRevertsHealthFactorHasNotImproved() public depositedCollateralAndMintedDsc {
+        // Drop the ETH price from $2000 to $500
         MockV3Aggregator(ethUsdPriceFeed).updateAnswer(500e8);
 
         // We want to assert that the health Factor of the user is lesser than 1.0 - Min Health Factor
-        assertLt(dscEngine.getHealthFactor(USER), dscEngine.getMinimumHealthFactor());
+        assertLt(dscEngine.getHealthFactor(USER), dscEngine.getMinHealthFactor());
 
-        deal(wethAddress, LIQUIDATOR, 10 ether);
         vm.startPrank(LIQUIDATOR);
-        ERC20Mock(wethAddress).approve(address(dscEngine), 3 ether);
-        dscEngine.depositCollateralAndMintDsc(wethAddress, 3 ether, 1000e18);
+        deal(wethAddress, LIQUIDATOR, 5 ether);
+        ERC20Mock(wethAddress).approve(address(dscEngine), 5 ether);
+        dscEngine.depositCollateralAndMintDsc(wethAddress, 5 ether, 1000e18);
 
-        IERC20(dsc).approve(address(dscEngine), 10e18);
+        IERC20(dsc).approve(address(dscEngine), 500e18);
         vm.expectRevert(DSCEngine__HealthFactorNotImproved.selector);
-        dscEngine.liquidate(wethAddress, USER, 10e18);
+        dscEngine.liquidate(wethAddress, USER, 100e18);
         vm.stopPrank();
-    } */
+    }
 
     ///////////////////////////////////////
     // Getter Functions  //
