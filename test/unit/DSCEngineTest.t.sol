@@ -74,7 +74,7 @@ contract DSCEngineTest is Test {
     function setUp() public {
         deployer = new DeployDSCEngine();
         (dsc, dscEngine, config) = deployer.run();
-        (ethUsdPriceFeed, btcUsdPriceFeed, wethAddress, wbtcAddress,) = config.activeNetworkConfig();
+        (ethUsdPriceFeed, btcUsdPriceFeed, wethAddress, wbtcAddress) = config.activeNetworkConfig();
         ERC20Mock(wethAddress).mint(USER, AMOUNT_COLLATERAL);
     }
 

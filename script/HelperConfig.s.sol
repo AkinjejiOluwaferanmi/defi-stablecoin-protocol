@@ -11,13 +11,11 @@ contract HelperConfig is Script {
         address btcUsdPriceFeed;
         address wethAddress;
         address wbtcAddress;
-        uint256 deployerKey;
     }
 
     uint8 public constant DECIMALS = 8;
     int256 public constant ETH_USD_PRICE = 2000e8; // $2000
     int256 public constant BTC_USD_PRICE = 1000e8; // $1000
-    uint256 public constant DEFAULT_ANVIL_KEY = 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80;
 
     NetworkConfig public activeNetworkConfig;
 
@@ -31,13 +29,12 @@ contract HelperConfig is Script {
         }
     }
 
-    function getSepoliaEthConfig() public view returns (NetworkConfig memory) {
+    function getSepoliaEthConfig() public pure returns (NetworkConfig memory) {
         return NetworkConfig({
             ethUsdPriceFeed: 0x694AA1769357215DE4FAC081bf1f309aDC325306, // Sepolia WETH/USD Price Feed
             btcUsdPriceFeed: 0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43, // Sepolia WBTC/USD Price Feed
             wethAddress: 0xdd13E55209Fd76AfE204dBda4007C227904f0a81, // Sepolia WETH Address
-            wbtcAddress: 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, // Sepolia WBTC Address
-            deployerKey: vm.envUint("PRIVATE_KEY") // Deployer's private key
+            wbtcAddress: 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063 // Sepolia WBTC Address
         });
     }
 
@@ -58,8 +55,7 @@ contract HelperConfig is Script {
             ethUsdPriceFeed: address(ethUsdPriceFeed),
             btcUsdPriceFeed: address(btcUsdPriceFeed),
             wethAddress: address(wethMock),
-            wbtcAddress: address(wbtcMock),
-            deployerKey: DEFAULT_ANVIL_KEY // Default Anvil key
+            wbtcAddress: address(wbtcMock)
         });
     }
 }

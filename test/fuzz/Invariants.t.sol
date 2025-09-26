@@ -30,7 +30,7 @@ contract Invariants is StdInvariant, Test {
         // Set up the invariants we want to test.
         deployer = new DeployDSCEngine();
         (dsc, dscEngine, config) = deployer.run();
-        (,, wethAddress, wbtcAddress,) = config.activeNetworkConfig();
+        (,, wethAddress, wbtcAddress) = config.activeNetworkConfig();
         // targetContract(address(dscEngine));
         handler = new Handler(dscEngine, dsc);
         targetContract(address(handler));
